@@ -1,38 +1,40 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
-import { sprintsService } from "../services/SprintsService";
+import { notesService } from "../services/NotesService";
 import BaseController from "../utils/BaseController";
 
-export class SprintsController extends BaseController {
+export class NotesController extends BaseController {
   constructor() {
-    super('api/projects/:projectId/sprints')
+    super('api/projects/:projectId/notes')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .get('', this.get)
       .delete('/:id', this.remove)
   }
+
   async create(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
       req.body.projectId = req.params.projectId
-      const sprint = await sprintsService.create(req.body)
-      return res.send(sprint)
+      const note = await notesService.create(req.body)
+      return res.send(note)
     } catch (error) {
       next(error)
     }
   }
+
   async get(req, res, next) {
     try {
-      const sprints = await sprintsService.get(req.params.projectId)
-      return res.send(sprints)
+      const notes = await notesService.get(req.params.projectId)
+      return res.send(notes)
     } catch (error) {
       next(error)
     }
   }
   async remove(req, res, next) {
     try {
-      await sprintsService.remove(req.params.id, req.userInfo.id)
-      return res.send('DELETED')
+      await notesService.remove(req.params.id, req.userInfo.id)
+      return res.send('DELERTED')
     } catch (error) {
       next(error)
     }

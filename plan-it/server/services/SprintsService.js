@@ -3,14 +3,14 @@ import { BadRequest } from "../utils/Errors"
 
 
 class SprintsService {
-  async get(projectId) {
-    const sprints = await dbContext.Sprints.find({ projectId }).populate('creator', 'name picture')
-    return sprints
-  }
   async create(body) {
     const sprint = await dbContext.Sprints.create(body)
     await sprint.populate('creator', 'name picture')
     return sprint
+  }
+  async get(projectId) {
+    const sprints = await dbContext.Sprints.find({ projectId }).populate('creator', 'name picture')
+    return sprints
   }
   async remove(id, userId) {
     const original = await dbContext.Sprints.findById(id)
