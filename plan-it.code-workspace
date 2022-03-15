@@ -1,0 +1,60 @@
+
+{
+  "folders": [
+    {
+      "path": "plan-it.client",
+      "name": "client"
+    },
+    {
+      "path": "plan-it",
+      "name": "server"
+    }
+  ],
+  "settings": {
+    "editor.suggestSelection": "first",
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "javascript.referencesCodeLens.enabled": true,
+    "javascript.referencesCodeLens.showOnAllFunctions": true,
+    "typescript.implementationsCodeLens.enabled": true,
+    "typescript.referencesCodeLens.enabled": true,
+    "typescript.referencesCodeLens.showOnAllFunctions": true,
+    "js/ts.implicitProjectConfig.checkJs": true,
+    "files.exclude": {
+      "**/.nyc_*": true,
+      "**/coverage": true,
+      "**/node_modules": true
+    },
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "explorer.confirmDragAndDrop": false,
+    "vetur.format.defaultFormatter.js": "vscode-typescript",
+    "eslint.alwaysShowStatus": true,
+    "eslint.format.enable": true,
+    "eslint.lintTask.enable": true,
+    "eslint.codeActionsOnSave.mode": "all",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    },
+    "workbench.colorCustomizations": {
+      "activityBar.activeBackground": "#f77242",
+      "activityBar.activeBorder": "#66f98d",
+      "activityBar.background": "#f77242",
+      "activityBar.foreground": "#15202b",
+      "activityBar.inactiveForeground": "#15202b99",
+      "activityBarBadge.background": "#66f98d",
+      "activityBarBadge.foreground": "#15202b",
+      "sash.hoverBorder": "#f77242",
+      "statusBar.background": "#f54d11",
+      "statusBar.foreground": "#e7e7e7",
+      "statusBarItem.hoverBackground": "#f77242",
+      "statusBarItem.remoteBackground": "#f54d11",
+      "statusBarItem.remoteForeground": "#e7e7e7",
+      "titleBar.activeBackground": "#f54d11",
+      "titleBar.activeForeground": "#e7e7e7",
+      "titleBar.inactiveBackground": "#f54d1199",
+      "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#f54d11"
+  }
+}
