@@ -55,28 +55,6 @@
         :key="n.id"
         class="shadow rounded bg-secondary lighten-20"
       >
-        <!-- <div class="d-flex justify-content-between">
-          <div class="d-flex align-items-center">
-            <img
-              class="rounded m-2"
-              src="http://thiscatdoesnotexist.com"
-              style="height: 40px; width: 40px"
-              alt=""
-            />
-            <h6>note creator</h6>
-          </div>
-          <div>
-            <i @click="deleteNote" class="mdi mdi-cancel me-1 selectable"></i>
-          </div>
-        </div>
-        <div class="p-1">
-          <p class="ms-2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-            neque illo nostrum rerum quaerat debitis voluptas pariatur esse vel
-            doloremque sit blanditiis consequuntur voluptate, quod dolorum,
-            exercitationem inventore modi unde.
-          </p>
-        </div> -->
         <Note :note="n" />
       </div>
     </div>
@@ -115,7 +93,7 @@
       <i class="mdi mdi-comment-outline"></i>
       <div>
         <span>{{ task.weight }}</span>
-        <i class="mdi mdi-weight"></i>
+        <i class="mdi mdi-weight ms-2"></i>
       </div>
     </div>
   </div>
