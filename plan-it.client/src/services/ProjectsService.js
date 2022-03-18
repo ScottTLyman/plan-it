@@ -1,3 +1,4 @@
+import { applyStyles } from "@popperjs/core"
 import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
@@ -13,7 +14,7 @@ class ProjectsService {
     const res = await api.post('api/projects/', projectData)
     logger.log('project data', res.data)
     AppState.projects.unshift(res.data)
-    return res.data
+
   }
 
   async deleteProject(id) {

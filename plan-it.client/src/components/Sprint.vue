@@ -1,20 +1,37 @@
 <template>
   <div>
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between mt-2">
       <div>
         <h6 class="card-title">
           <i class="mdi mdi-alpha-s-box fs-3"></i>{{ sprint.name }}
-          <span>10</span>
+          <!-- <span @weight="getWeight"></span> -->
           <i class="mdi mdi-weight fs-4"></i>
         </h6>
       </div>
-      <div>
+      <div class="me-2">
         <h6 class="card-text">
-          <button class="btn btn-outline-info" @click="createTask">
+          <button
+            class="btn btn-outline-info"
+            data-bs-toggle="modal"
+            :data-bs-target="'#create-task' + sprint.id"
+          >
             Add Task +
           </button>
-          (tasks.length)Tasks complete
         </h6>
+      </div>
+    </div>
+    <Modal :id="'create-task' + sprint.id">
+      <template #title>Create Task</template>
+      <template #body><CreateTask :sprintId="sprint.id" /></template>
+    </Modal>
+    <div class="card-body bg-light d-flex flex-column">
+      <div v-for="t in tasks" :key="t.id">
+        <Task :task="t" :sprint="sprint" />
+      </div>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-danger" @click="deleteSprint">
+          Delete Sprint
+        </button>
       </div>
     </div>
   </div>
@@ -34,8 +51,18 @@ export default {
       required: true
     }
   },
-  setup() {
+  setup(props) {
     return {
+      async deleteSprint() {
+        try {
+          if (await Pop.confirm("Delete this sprint?")) {
+            await sprintsService.deleteSprint(props.sprint)
+          }
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
+      },
       async getSprintsByProjectId() {
         try {
           await sprintsService.getSprintsByProjectId(route.params.id)
@@ -44,6 +71,8 @@ export default {
           Pop.toast(error.message, 'error')
         }
       },
+      tasks: computed(() => AppState.tasks.filter(t => t.sprintId == props.sprint.id)),
+      checkedCount: computed(() => AppState.tasks.filter(t => t.isComplete == t.isComplete))
     }
   }
 }

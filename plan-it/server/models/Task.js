@@ -7,7 +7,7 @@ export const TaskSchema = new Schema(
     projectId: { type: Schema.Types.ObjectId, required: true },
     sprintId: { type: Schema.Types.ObjectId, required: true },
     creatorId: { type: Schema.Types.ObjectId, required: true, ref: 'Profile' },
-    isComplete: { type: Boolean, required: true, default: false },
+    isComplete: { type: Boolean, default: false },
     completedOn: { type: Date },
     assignedTo: { type: [Schema.Types.ObjectId] }
   },

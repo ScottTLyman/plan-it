@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+    <button data-bs-toggle="offcanvas" data-bs-target="#offcanvas">P</button>
+    <ProjectSelector />
     <div class="row">
       <div class="col-6">
         <div>
@@ -34,53 +36,13 @@
     <div class="row">
       <div class="col-12 mt-2">
         <div class="card">
-          <div
-            class="
-              card-body
-              bg-secondary
-              d-flex
-              flex-column
-              justify-content-between
-            "
-          >
+          <div class="bg-secondary d-flex flex-column justify-content-between">
             <div v-for="s in sprints" :key="s.id">
               <Sprint :sprint="s" />
             </div>
           </div>
-          <!-- NOTE end sprints template / begin tasks template -->
-          <div class="card-body bg-light">
-            <div class="form-check form-check-inline">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                name=""
-                id=""
-                value="checkedValue"
-              />
-              <label
-                class="form-check-label rounded-pill px-2 bg-primary text-light"
-                for=""
-              >
-                Task Name
-              </label>
-              <i class="mdi mdi-trash-can-outline text-danger fs-5"></i>
-              <p>task created at:</p>
-              <div class="d-flex justify-content-between">
-                <i class="mdi mdi-comment-outline"></i>
-                <div>
-                  <span>10</span>
-                  <i class="mdi mdi-weight"></i>
-                </div>
-              </div>
-            </div>
-            <!-- NOTE end tasks template -->
-            <div class="d-flex justify-content-end">
-              <button class="btn btn-danger" @click="deleteSprint">
-                Delete Sprint
-              </button>
-            </div>
-          </div>
         </div>
+        <!-- NOTE end sprints template / begin tasks template -->
       </div>
     </div>
   </div>
@@ -96,6 +58,7 @@ import Pop from "../utils/Pop"
 import { sprintsService } from "../services/SprintsService"
 import { useRoute, useRouter } from "vue-router"
 import { projectsService } from "../services/ProjectsService"
+import { tasksService } from "../services/TasksService"
 export default {
 
   setup() {
@@ -104,8 +67,10 @@ export default {
     watchEffect(async () => {
       try {
         if (route.params.id) {
+          await tasksService.getTasksByProjectId(route.params.id)
           await sprintsService.getSprintsByProjectId(route.params.id)
           await projectsService.getProjectById(route.params.id)
+          await projectsService.getAll()
         }
       } catch (error) {
         logger.error(error)
@@ -115,17 +80,7 @@ export default {
     return {
       sprints: computed(() => AppState.sprints),
       project: computed(() => AppState.activeProject),
-      async deleteSprint() {
-        let sprintToDelete = AppState.sprints.id
-        try {
-          if (await Pop.confirm("Delete this sprint?")) {
-            await sprintsService.deleteSprint(id, route.params.id)
-          }
-        } catch (error) {
-          logger.error(error)
-          Pop.toast(error.message, 'error')
-        }
-      },
+
       async deleteProject() {
         try {
           if (

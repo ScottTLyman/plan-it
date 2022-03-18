@@ -14,7 +14,8 @@ class TasksService {
     }
     original.body = body.body || original.body
     original.sprintId = body.sprintId || original.sprintId
-    original.isComplete = body.isComplete || original.isComplete
+    original.isComplete = body.isComplete
+    // NOTE harrison says to NULL CHECK IS COMPLETE!!!
     await original.save()
     return original
   }
