@@ -3,6 +3,7 @@
   <div class="d-flex col-12 mb-3 form-group">
     <label for="Note" class="form-label"></label>
     <input
+      v-model="note.body"
       type="text"
       class="form-control me-2"
       placeholder="Say Something..."
@@ -25,12 +26,27 @@
 import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
 import { notesService } from '../services/NotesService'
+import { useRoute } from "vue-router"
+import { ref } from "@vue/reactivity"
 export default {
-  setup() {
+  props: {
+    taskId: {
+      type: String,
+      required: true
+    },
+
+  },
+  setup(props) {
+    const route = useRoute()
+    const note = ref({
+      projectId: route.params.id,
+      taskId: props.taskId,
+    })
     return {
+      note,
       async createNote() {
         try {
-          await notesService.createNote()
+          await notesService.createNote(note.value, route.params.id)
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

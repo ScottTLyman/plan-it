@@ -14,7 +14,7 @@
     />
   </div>
   <div class="col-4">
-    <p>{{ project.createdAt }}</p>
+    <p>{{ new Date(project.createdAt).toLocaleString() }}</p>
   </div>
 </template>
 

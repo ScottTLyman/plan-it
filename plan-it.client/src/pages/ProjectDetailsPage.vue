@@ -59,6 +59,7 @@ import { sprintsService } from "../services/SprintsService"
 import { useRoute, useRouter } from "vue-router"
 import { projectsService } from "../services/ProjectsService"
 import { tasksService } from "../services/TasksService"
+import { notesService } from "../services/NotesService"
 export default {
 
   setup() {
@@ -67,6 +68,7 @@ export default {
     watchEffect(async () => {
       try {
         if (route.params.id) {
+          await notesService.getNotesByProjectId(route.params.id)
           await tasksService.getTasksByProjectId(route.params.id)
           await sprintsService.getSprintsByProjectId(route.params.id)
           await projectsService.getProjectById(route.params.id)

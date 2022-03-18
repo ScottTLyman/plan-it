@@ -49,7 +49,36 @@
         </div>
       </div>
       <!-- NOTE notes below -->
-      <NoteForm />
+      <NoteForm :taskId="task.id" />
+      <div
+        v-for="n in notes"
+        :key="n.id"
+        class="shadow rounded bg-secondary lighten-20"
+      >
+        <!-- <div class="d-flex justify-content-between">
+          <div class="d-flex align-items-center">
+            <img
+              class="rounded m-2"
+              src="http://thiscatdoesnotexist.com"
+              style="height: 40px; width: 40px"
+              alt=""
+            />
+            <h6>note creator</h6>
+          </div>
+          <div>
+            <i @click="deleteNote" class="mdi mdi-cancel me-1 selectable"></i>
+          </div>
+        </div>
+        <div class="p-1">
+          <p class="ms-2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
+            neque illo nostrum rerum quaerat debitis voluptas pariatur esse vel
+            doloremque sit blanditiis consequuntur voluptate, quod dolorum,
+            exercitationem inventore modi unde.
+          </p>
+        </div> -->
+        <Note :note="n" />
+      </div>
     </div>
   </div>
   <div class="form-check form-check-inline">
@@ -100,6 +129,7 @@ import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
 import { tasksService } from "../services/TasksService"
+import { notesService } from "../services/NotesService"
 export default {
   props: {
     task: {
@@ -109,12 +139,16 @@ export default {
     sprint: {
       type: Object,
       required: true
+    },
+    note: {
+      type: Object,
+      required: true
     }
   },
   setup(props) {
     const route = useRoute()
     const editingTask = ref(false)
-    // this.$emit('weight', task.weight)
+
     return {
       editingTask,
       async deleteTask() {
@@ -144,7 +178,8 @@ export default {
           Pop.toast(error.message, 'error')
         }
       },
-      sprints: computed(() => AppState.sprints)
+      sprints: computed(() => AppState.sprints),
+      notes: computed(() => AppState.notes)
     }
   }
 }

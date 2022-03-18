@@ -8,7 +8,6 @@ class TasksService {
     const res = await api.post(`api/projects/${projectId}/tasks`, taskData)
     logger.log('task created', res.data)
     AppState.tasks.push(res.data)
-    return res.data
   }
   async getTasksByProjectId(projectId) {
     const res = await api.get(`api/projects/${projectId}/tasks`)
@@ -30,7 +29,8 @@ class TasksService {
     logger.log(task, sprint, projectId)
     const res = await api.put(`api/projects/${projectId}/tasks/${task.id}`, { sprintId: sprint })
     let taskToMove = AppState.tasks.findIndex(t => t.id == task.id)
-    AppState.tasks.splice()
+    AppState.tasks.splice(taskToMove, 1, res.data)
+    AppState.tasks = AppState.tasks
   }
 }
 export const tasksService = new TasksService()

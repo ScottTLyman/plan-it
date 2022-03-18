@@ -4,7 +4,7 @@
       <div>
         <h6 class="card-title">
           <i class="mdi mdi-alpha-s-box fs-3"></i>{{ sprint.name }}
-          <!-- <span @weight="getWeight"></span> -->
+          <span>{{ sprintWeight }}</span>
           <i class="mdi mdi-weight fs-4"></i>
         </h6>
       </div>
@@ -44,6 +44,7 @@ import { AppState } from "../AppState"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { sprintsService } from "../services/SprintsService"
+import { applyStyles } from "@popperjs/core"
 export default {
   props: {
     sprint: {
@@ -72,7 +73,14 @@ export default {
         }
       },
       tasks: computed(() => AppState.tasks.filter(t => t.sprintId == props.sprint.id)),
-      checkedCount: computed(() => AppState.tasks.filter(t => t.isComplete == t.isComplete))
+      checkedCount: computed(() => AppState.tasks.filter(t => t.isComplete == t.isComplete)),
+      sprintWeight: computed(() => {
+        // AppState.tasks.filter(t => t.sprintId == props.sprint.id).forEach(t => t.weight++)
+        // return sprintWeight
+        // TODO grab tasks belonging to  this sprint
+        // TODO iterate over the array and add the weights together
+        // TODO return weight total
+      })
     }
   }
 }
