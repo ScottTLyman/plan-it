@@ -41,11 +41,11 @@ export default {
           await sprintsService.createSprint(sprint.value, route.params.id)
           Modal.getOrCreateInstance(document.getElementById("create-sprint")).hide()
           logger.log(route.params.id)
+          await this.getSprintsByProjectId()
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')
         }
-        // this.getSprintsByProjectId()
       },
       async getSprintsByProjectId() {
         try {
