@@ -45,7 +45,7 @@ export default {
           logger.error(error)
           Pop.toast(error.message, 'error')
         }
-        this.getSprintsByProjectId()
+        // this.getSprintsByProjectId()
       },
       async getSprintsByProjectId() {
         try {

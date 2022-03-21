@@ -14,6 +14,7 @@ class SprintsService {
     const res = await api.get('api/projects/' + projectId + '/sprints')
     logger.log('got sprints for project', res.data)
     AppState.sprints = res.data
+    return res.data
 
   }
   async deleteSprint(sprint) {
